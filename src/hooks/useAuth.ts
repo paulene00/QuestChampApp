@@ -6,6 +6,13 @@ import { Dashboard } from './components/Dashboard/Dashboard'
 function App() {
   const { user, loading } = useAuth()
 
+  useEffect(() => {
+    const handleAuthCallback = async () => {
+      const { data, error } = await supabase.auth.getSession()
+      if (error) {
+        console.error('Error getting session:', error)
+      } else if (data?.session) {
+        setUser(data.session.user)
       }
     }
 
