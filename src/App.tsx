@@ -18,7 +18,7 @@ function App() {
       const hashParams = new URLSearchParams(window.location.hash.substring(1))
       const type = hashParams.get('type')
       
-      if (type === 'recovery') {
+      if (type === 'recovery' || window.location.hash.includes('type=recovery')) {
         setIsPasswordReset(true)
         // Clear the URL fragments
         window.history.replaceState({}, document.title, window.location.pathname)
