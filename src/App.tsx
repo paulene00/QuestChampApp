@@ -1,35 +1,10 @@
 import React from 'react'
-import { useEffect } from 'react'
 import { useAuth } from './hooks/useAuth'
 import { AuthPage } from './components/Auth/AuthPage'
-import { ResetPasswordForm } from './components/Auth/ResetPasswordForm'
-import { PasswordResetSuccess } from './components/Auth/PasswordResetSuccess'
 import { Dashboard } from './components/Dashboard/Dashboard'
-import { supabase } from './lib/supabase'
 
 function App() {
   const { user, loading } = useAuth()
-  const [showResetSuccess, setShowResetSuccess] = React.useState(false)
-  const [isPasswordReset, setIsPasswordReset] = React.useState(false)
-
-  useEffect(() => {
-    // Handle password reset URL fragments
-    const handleAuthCallback = async () => {
-      const hashParams = new URLSearchParams(window.location.hash.substring(1))
-      const type = hashParams.get('type')
-      
-      if (type === 'recovery' || window.location.hash.includes('type=recovery')) {
-        setIsPasswordReset(true)
-        // Clear the URL fragments
-        window.history.replaceState({}, document.title, window.location.pathname)
-      }
-    }
-
-    handleAuthCallback()
-  }, [])
-
-  // Check if we're on the password reset page
-  const isResetPasswordPage = window.location.pathname === '/reset-password' || isPasswordReset
 
   // Show connection message if Supabase is not configured
   if (!import.meta.env.VITE_SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
@@ -55,20 +30,6 @@ function App() {
     )
   }
 
-  // Handle password reset flow
-  if (isResetPasswordPage) {
-    if (showResetSuccess) {
-      return <PasswordResetSuccess onContinue={() => {
-        setShowResetSuccess(false)
-        setIsPasswordReset(false)
-        window.history.pushState({}, '', '/')
-      }} />
-    }
-    return <ResetPasswordForm onSuccess={() => {
-      setShowResetSuccess(true)
-      setIsPasswordReset(false)
-    }} />
-  }
 
   if (loading) {
     return (

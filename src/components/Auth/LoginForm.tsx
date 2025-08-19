@@ -4,10 +4,9 @@ import { useAuth } from '../../hooks/useAuth'
 
 interface LoginFormProps {
   onSwitchToRegister: () => void
-  onForgotPassword: () => void
 }
 
-export function LoginForm({ onSwitchToRegister, onForgotPassword }: LoginFormProps) {
+export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -89,14 +88,6 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword }: LoginFormPro
           </button>
         </form>
 
-        <div className="mt-6 text-center">
-          <button
-            onClick={onForgotPassword}
-            className="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors"
-          >
-            Forgot your password?
-          </button>
-        </div>
 
         <div className="mt-8 text-center">
           <p className="text-gray-600">

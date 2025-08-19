@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { LoginForm } from './LoginForm'
 import { RegisterForm } from './RegisterForm'
-import { ForgotPasswordForm } from './ForgotPasswordForm'
 import { CheckSquare } from 'lucide-react'
 
-type AuthView = 'login' | 'register' | 'forgot-password'
+type AuthView = 'login' | 'register'
 
 export function AuthPage() {
   const [currentView, setCurrentView] = useState<AuthView>('login')
@@ -48,12 +47,9 @@ export function AuthPage() {
           {currentView === 'login' ? (
             <LoginForm 
               onSwitchToRegister={() => setCurrentView('register')} 
-              onForgotPassword={() => setCurrentView('forgot-password')}
             />
           ) : currentView === 'register' ? (
             <RegisterForm onSwitchToLogin={() => setCurrentView('login')} />
-          ) : (
-            <ForgotPasswordForm onBackToLogin={() => setCurrentView('login')} />
           )}
         </div>
       </div>
