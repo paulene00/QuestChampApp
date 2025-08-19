@@ -50,7 +50,7 @@ export function AuthPage() {
             />
           ) : currentView === 'register' ? (
             <RegisterForm onSwitchToLogin={() => setCurrentView('login')} />
-          )}
+          ) : null}
         </div>
       </div>
     </div>
