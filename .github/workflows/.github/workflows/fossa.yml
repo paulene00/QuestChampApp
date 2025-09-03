@@ -1,0 +1,18 @@
+name: FOSSA Scan
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  fossa-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: fossas/fossa-action@v1
+        with:
+          api-key: ${{ secrets.FOSSA_API_KEY }}
+          # run-tests: true    # <- uncomment to fail on violations
+          # working-directory: .  # <- set if your code is in a subfolder
